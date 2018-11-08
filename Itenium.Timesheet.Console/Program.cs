@@ -18,8 +18,8 @@ namespace Itenium.Timesheet.Console
             };
             var excel = Timesheets.Create(details);
 
-            var currentDllPath = new FileInfo(Environment.GetCommandLineArgs()[0]);
-            var saveExcelAs = currentDllPath.DirectoryName + $"\\itenium-timesheet-{DateTime.Now.Year}.xlsx";
+            FileInfo currentDllPath = new FileInfo(Environment.GetCommandLineArgs()[0]);
+            string saveExcelAs = currentDllPath.DirectoryName + $"\\itenium-timesheet-{DateTime.Now.Year}.xlsx";
             File.WriteAllBytes(saveExcelAs, excel);
 
             System.Console.WriteLine("Timesheet template saved as:");

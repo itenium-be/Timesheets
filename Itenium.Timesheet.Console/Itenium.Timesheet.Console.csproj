@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="4.5.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Itenium.Timesheet.Core\Itenium.Timesheet.Core.csproj" />
   </ItemGroup>
 
