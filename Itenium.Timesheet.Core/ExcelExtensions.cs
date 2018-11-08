@@ -2,7 +2,7 @@
 
 namespace Itenium.Timesheet.Core
 {
-    public static class ExcelExtensions
+    internal static class ExcelExtensions
     {
         public static void HeaderLabel(this ExcelRange cell, string label)
         {
@@ -20,7 +20,7 @@ namespace Itenium.Timesheet.Core
     }
 
 
-    public static class OtherExtensions
+    internal static class OtherExtensions
     {
         public static string ToOrdinal(this int num)
         {
