@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itenium.Timesheet.Console", "Itenium.Timesheet.Console\Itenium.Timesheet.Console.csproj", "{351EEBF2-86E8-4901-9842-E5FABA41CFC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itenium.Timesheet.Core", "Itenium.Timesheet.Core\Itenium.Timesheet.Core.csproj", "{D65FB0F1-A3A8-4058-9098-F275A22BEEE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{351EEBF2-86E8-4901-9842-E5FABA41CFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{351EEBF2-86E8-4901-9842-E5FABA41CFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{351EEBF2-86E8-4901-9842-E5FABA41CFC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D65FB0F1-A3A8-4058-9098-F275A22BEEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D65FB0F1-A3A8-4058-9098-F275A22BEEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D65FB0F1-A3A8-4058-9098-F275A22BEEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D65FB0F1-A3A8-4058-9098-F275A22BEEE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

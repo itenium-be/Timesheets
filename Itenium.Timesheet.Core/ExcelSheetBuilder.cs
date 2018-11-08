@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
-namespace Itenium.Timesheet
+namespace Itenium.Timesheet.Core
 {
-    public class ExcelSheetBuilder
+    internal class ExcelSheetBuilder
     {
         private const string TimesheetEmail = "invoice@itenium.be";
-        private const string TimesheetNotice = "Please send back duly signed document together with your invoice by the 2nd working day of the following month to:";
+        private const string TimesheetNoticeFreelancer = "Please send back duly signed document together with your invoice by the 2nd working day of the following month to:";
+        private const string TimesheetNoticeConsultant = "Please send back duly signed document by the 2nd working day of the following month to:";
 
         private readonly ExcelWorksheet _sheet;
         private readonly ProjectDetails _details;
+        private readonly int _month;
 
-        private readonly int _startRow = 10;
+        private const int StartRow = 10;
         private int _endRow;
 
-        public ExcelSheetBuilder(ExcelWorksheet sheet, ProjectDetails details)
+        public ExcelSheetBuilder(ExcelWorksheet sheet, ProjectDetails details, int month)
         {
             _sheet = sheet;
             _details = details;
+            _month = month;
         }
 
         public void Build()
@@ -57,7 +59,7 @@ namespace Itenium.Timesheet
 
             _sheet.Cells["I11"].StyleName = "Left";
             _sheet.Cells["H11"].HeaderLabel("Total Time");
-            _sheet.Cells["I11"].Formula = $"SUM(C{_startRow + 1}:C{_endRow})";
+            _sheet.Cells["I11"].Formula = $"SUM(C{StartRow + 1}:C{_endRow})";
             _sheet.Cells["I11"].Style.Numberformat.Format = "[HH]:MM";
 
             _sheet.Cells["I12"].StyleName = "Left";
@@ -78,9 +80,17 @@ namespace Itenium.Timesheet
             _sheet.Cells["I14"].Style.Border.BorderAround(ExcelBorderStyle.Thin);
         }
 
+        private IEnumerable<DayInfo> GetDaysInMonth()
+        {
+            for (int day = 1; day <= DateTime.DaysInMonth(_details.Year, _month); day++)
+            {
+                yield return new DayInfo(_details.Year, _month, day);
+            }
+        }
+
         private void AddMonthTable()
         {
-            int startRow = _startRow;
+            int startRow = StartRow;
 
             int currentRow = startRow;
             _sheet.Row(startRow).Height = 18;
@@ -91,7 +101,7 @@ namespace Itenium.Timesheet
             _sheet.Cells[currentRow, 2, currentRow, 5].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             currentRow++;
 
-            foreach (var day in _details.GetDaysInMonth())
+            foreach (var day in GetDaysInMonth())
             {
                 _sheet.Cells[currentRow, 2].Value = day;
                 _sheet.Cells[currentRow, 2].StyleName = "Center";
@@ -128,7 +138,7 @@ namespace Itenium.Timesheet
             _sheet.Cells[startRow, 2, startRow, 5].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
 
             _sheet.Cells[currentRow + 2, 2].StyleName = "Center";
-            _sheet.Cells[currentRow + 2, 2].Value = TimesheetNotice;
+            _sheet.Cells[currentRow + 2, 2].Value = _details.IsFreelancer ? TimesheetNoticeFreelancer : TimesheetNoticeConsultant;
             _sheet.Cells[currentRow + 2, 2].Style.WrapText = true;
             _sheet.Cells[currentRow + 2, 2, currentRow + 2, 9].Merge = true;
             _sheet.Row(currentRow + 2).Height = 28;
@@ -165,7 +175,7 @@ namespace Itenium.Timesheet
             _sheet.Cells["C6"].Value = _details.ConsultantName;
 
             _sheet.Cells["B7"].HeaderLabel("Month");
-            _sheet.Cells["C7"].Value = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(_details.Month) + " " + _details.Year;
+            _sheet.Cells["C7"].Value = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(_month) + " " + _details.Year;
 
             _sheet.Cells["H6"].HeaderLabel("Customer");
             _sheet.Cells["I6"].Value = _details.Customer;

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 
-namespace Itenium.Timesheet
+namespace Itenium.Timesheet.Core
 {
     public static class ExcelExtensions
     {

@@ -2,9 +2,9 @@
 using System.Globalization;
 using Nager.Date;
 
-namespace Itenium.Timesheet
+namespace Itenium.Timesheet.Core
 {
-    public class DayInfo
+    internal class DayInfo
     {
         private readonly DateTime _date;
 
