@@ -17,12 +17,6 @@ namespace Itenium.Timesheet.Core
             var publicHolidays = DateSystem.GetPublicHoliday("BE", _date, _date);
             foreach (var publicHoliday in publicHolidays)
             {
-                if (publicHoliday.LocalName == "Pâques")
-                    return "Pasen";
-
-                if (publicHoliday.LocalName == "Weihnachten")
-                    return "Kerstdag";
-
                 return publicHoliday.LocalName;
             }
             return "";
