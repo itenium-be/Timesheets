@@ -27,7 +27,8 @@ namespace Itenium.Timesheet.WinForms
                 IsFreelancer = IsFreelancer.Checked,
                 Customer = Customer.Text,
                 CustomerReference = CustomerReference.Text,
-                ProjectName = ProjectName.Text
+                ProjectName = ProjectName.Text,
+                Year = int.Parse(Year.Text)
             };
             var excel = Timesheets.Create(details);
 
@@ -36,6 +37,11 @@ namespace Itenium.Timesheet.WinForms
             File.WriteAllBytes(saveExcelAs, excel);
 
             System.Diagnostics.Process.Start(saveExcelAs);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Year.Text = DateTime.Now.Year.ToString();
         }
     }
 }

@@ -39,22 +39,26 @@
             this.IsFreelancer = new System.Windows.Forms.CheckBox();
             this.ConsultantName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Year = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(405, 158);
+            this.button1.Location = new System.Drawing.Point(405, 183);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(177, 45);
-            this.button1.TabIndex = 0;
+            this.button1.TabIndex = 6;
             this.button1.Text = "Create Timesheet";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Year);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.ProjectName);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.CustomerReference);
@@ -66,7 +70,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(570, 140);
+            this.groupBox1.Size = new System.Drawing.Size(570, 165);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -75,7 +79,7 @@
             this.ProjectName.Location = new System.Drawing.Point(155, 106);
             this.ProjectName.Name = "ProjectName";
             this.ProjectName.Size = new System.Drawing.Size(296, 22);
-            this.ProjectName.TabIndex = 8;
+            this.ProjectName.TabIndex = 4;
             // 
             // label4
             // 
@@ -91,7 +95,7 @@
             this.CustomerReference.Location = new System.Drawing.Point(155, 78);
             this.CustomerReference.Name = "CustomerReference";
             this.CustomerReference.Size = new System.Drawing.Size(296, 22);
-            this.CustomerReference.TabIndex = 6;
+            this.CustomerReference.TabIndex = 3;
             // 
             // label3
             // 
@@ -107,7 +111,7 @@
             this.Customer.Location = new System.Drawing.Point(155, 50);
             this.Customer.Name = "Customer";
             this.Customer.Size = new System.Drawing.Size(296, 22);
-            this.Customer.TabIndex = 4;
+            this.Customer.TabIndex = 2;
             this.Customer.Text = "Solvay";
             // 
             // label2
@@ -122,10 +126,10 @@
             // IsFreelancer
             // 
             this.IsFreelancer.AutoSize = true;
-            this.IsFreelancer.Location = new System.Drawing.Point(465, 17);
+            this.IsFreelancer.Location = new System.Drawing.Point(466, 21);
             this.IsFreelancer.Name = "IsFreelancer";
             this.IsFreelancer.Size = new System.Drawing.Size(98, 21);
-            this.IsFreelancer.TabIndex = 2;
+            this.IsFreelancer.TabIndex = 1;
             this.IsFreelancer.Text = "Freelancer";
             this.IsFreelancer.UseVisualStyleBackColor = true;
             // 
@@ -134,7 +138,7 @@
             this.ConsultantName.Location = new System.Drawing.Point(155, 22);
             this.ConsultantName.Name = "ConsultantName";
             this.ConsultantName.Size = new System.Drawing.Size(296, 22);
-            this.ConsultantName.TabIndex = 1;
+            this.ConsultantName.TabIndex = 0;
             this.ConsultantName.Text = "Jonas Vandermosten";
             // 
             // label1
@@ -146,12 +150,28 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Consultant";
             // 
+            // Year
+            // 
+            this.Year.Location = new System.Drawing.Point(155, 134);
+            this.Year.Name = "Year";
+            this.Year.Size = new System.Drawing.Size(296, 22);
+            this.Year.TabIndex = 5;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 134);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 17);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Year";
+            // 
             // Form1
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 213);
+            this.ClientSize = new System.Drawing.Size(593, 240);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -159,6 +179,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Itenium Timesheet Generator";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -178,6 +199,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox Customer;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox Year;
+        private System.Windows.Forms.Label label5;
     }
 }
 
