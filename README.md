@@ -8,5 +8,5 @@ Create timesheet Excel with a tab per month with Belgian holidays.
 
 Create the template:  
 ```
-dotnet run --project .\Itenium.Timesheet\Itenium.Timesheet.csproj
+dotnet run --project .\Itenium.Timesheet.Console\Itenium.Timesheet.Console.csproj
 ```
