@@ -21,22 +21,19 @@ namespace Itenium.Timesheet.WinForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var details = new ProjectDetails()
+            var details = new ProjectDetails(int.Parse(Year.Text))
             {
                 ConsultantName = ConsultantName.Text,
                 IsFreelancer = IsFreelancer.Checked,
                 Customer = Customer.Text,
                 CustomerReference = CustomerReference.Text,
                 ProjectName = ProjectName.Text,
-                Year = int.Parse(Year.Text)
             };
+
+            var desktopPath = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             var excel = Timesheets.Create(details);
-
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string saveExcelAs = desktopPath + $"\\itenium-timesheet-{DateTime.Now.Year}.xlsx";
-            File.WriteAllBytes(saveExcelAs, excel);
-
-            System.Diagnostics.Process.Start(saveExcelAs);
+            File.WriteAllBytes(details.GetFilename(desktopPath), excel);
+            System.Diagnostics.Process.Start(details.GetFilename(desktopPath));
         }
 
         private void Form1_Load(object sender, EventArgs e)

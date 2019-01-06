@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Itenium.Timesheet.Core;
+using Newtonsoft.Json;
 
 namespace Itenium.Timesheet.Console
 {
@@ -8,22 +11,21 @@ namespace Itenium.Timesheet.Console
     {
         private static void Main(string[] args)
         {
-            var details = new ProjectDetails()
+            int year = DateTime.Now.Year;
+            DirectoryInfo currentDllPath = new FileInfo(Environment.GetCommandLineArgs()[0]).Directory;
+
+            IEnumerable<ProjectDetails> templates = ProjectDetailsFactory.CreateForYear(year);
+            IEnumerable<ProjectDetails> projects = ProjectDetailsFactory.CreateForProjects(currentDllPath, year);
+
+            System.Console.WriteLine("Timesheet(s) created:");
+            foreach (var timesheet in templates.Union(projects))
             {
-                ConsultantName = "Jonas Vandermosten",
-                IsFreelancer = false,
-                Customer = "Solvay",
-                CustomerReference = "",
-                ProjectName = ""
-            };
-            var excel = Timesheets.Create(details);
+                byte[] excel = Timesheets.Create(timesheet);
+                string fileName = timesheet.GetFilename(currentDllPath);
 
-            FileInfo currentDllPath = new FileInfo(Environment.GetCommandLineArgs()[0]);
-            string saveExcelAs = currentDllPath.DirectoryName + $"\\itenium-timesheet-{DateTime.Now.Year}.xlsx";
-            File.WriteAllBytes(saveExcelAs, excel);
-
-            System.Console.WriteLine("Timesheet template saved as:");
-            System.Console.WriteLine(saveExcelAs);
+                File.WriteAllBytes(fileName, excel);
+                System.Console.WriteLine(fileName);
+            }
         }
     }
 }

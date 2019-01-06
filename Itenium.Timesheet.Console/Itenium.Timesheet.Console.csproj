@@ -13,4 +13,14 @@
     <ProjectReference Include="..\Itenium.Timesheet.Core\Itenium.Timesheet.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Projects\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Projects\Jonas-Vandermosten-Solvay.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
