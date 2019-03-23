@@ -10,7 +10,8 @@ namespace Itenium.Timesheet.Core
 {
     internal class ExcelSheetBuilder
     {
-        private const string TimesheetEmail = "invoice@itenium.be";
+        private const string TimesheetEmailFreelancer = "invoice@itenium.be";
+        private const string TimesheetEmailConsultant = "timesheet@itenium.be";
         private const string TimesheetNoticeFreelancer = "Please send back duly signed document together with your invoice by the 2nd working day of the following month to:";
         private const string TimesheetNoticeConsultant = "Please send back duly signed document by the 2nd working day of the following month to:";
 
@@ -147,8 +148,9 @@ namespace Itenium.Timesheet.Core
             _sheet.Cells[currentRow + 3, 2].StyleName = "Center";
 
             var ourEmailCell = _sheet.Cells[currentRow + 3, 2];
-            ourEmailCell.Hyperlink = new Uri("mailto:" + TimesheetEmail, UriKind.Absolute);
-            ourEmailCell.Value = TimesheetEmail;
+            var email = _details.IsFreelancer ? TimesheetEmailFreelancer : TimesheetEmailConsultant;
+            ourEmailCell.Hyperlink = new Uri("mailto:" + email, UriKind.Absolute);
+            ourEmailCell.Value = email;
             ourEmailCell.Style.Font.Color.SetColor(Color.Blue);
             ourEmailCell.Style.Font.UnderLine = true;
         }

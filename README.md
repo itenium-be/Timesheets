@@ -3,7 +3,10 @@ Timesheet Generator
 
 Create timesheet Excel with a tab per month with Belgian holidays.
 
-**Send to**: invoice@itenium.be
+**Send to**:  
+- Freelancer: invoice@itenium.be
+- Consultant: timesheet@itenium.be
+
 
 New Year
 --------
