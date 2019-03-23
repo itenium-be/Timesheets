@@ -8,6 +8,24 @@ Create timesheet Excel with a tab per month with Belgian holidays.
 - Consultant: timesheet@itenium.be
 
 
+New Project
+-----------
+
+A new project where we use our timesheet template.
+Add a json file to `Itenium.Timesheet.Console\Projects`.
+
+Example  
+```
+{
+  "ConsultantName": "",
+  "Customer": "",
+  "CustomerReference": "",
+  "ProjectName": "",
+  "IsFreelancer": 0
+}
+```
+
+
 New Year
 --------
 
