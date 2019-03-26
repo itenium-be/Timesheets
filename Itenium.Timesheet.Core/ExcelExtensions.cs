@@ -4,10 +4,10 @@ namespace Itenium.Timesheet.Core
 {
     internal static class ExcelExtensions
     {
-        public static void HeaderLabel(this ExcelRange cell, string label)
+        public static void HeaderLabel(this ExcelRange cell, string label, string styleName = "Right")
         {
             cell.Value = label + ": ";
-            cell.StyleName = "Right";
+            cell.StyleName = styleName;
             cell.Style.Font.Bold = true;
         }
 

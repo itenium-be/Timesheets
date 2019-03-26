@@ -42,3 +42,11 @@ Output:
 And then save them on the OneDrive in the folder `internal process`.
 
 Or use the Desktop application (Itenium.Timesheet.WinForms) to fill in the parameters with a UI.
+
+
+Km Vergoeding Template
+======================
+
+Create km vergoeding Excel with a tab per month with Belgian holidays.
+
+**Send to**: expenses@itenium.be

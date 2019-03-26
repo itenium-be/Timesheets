@@ -18,14 +18,30 @@ namespace Itenium.Timesheet.Console
             IEnumerable<ProjectDetails> projects = ProjectDetailsFactory.CreateForProjects(currentDllPath, year);
 
             System.Console.WriteLine("Timesheet(s) created:");
-            foreach (var timesheet in templates.Union(projects))
+            foreach (ProjectDetails projectDetails in templates.Union(projects))
             {
-                byte[] excel = Timesheets.Create(timesheet);
-                string fileName = timesheet.GetFilename(currentDllPath);
+                var builder = new TimesheetBuilder(projectDetails);
+                byte[] excel = builder.Build(projectDetails.Year);
+                string fileName = projectDetails.GetFilename(currentDllPath);
 
                 File.WriteAllBytes(fileName, excel);
                 System.Console.WriteLine(fileName);
             }
+
+            CreateKmVergoedingTemplate(year, currentDllPath);
+        }
+
+        private static void CreateKmVergoedingTemplate(int year, DirectoryInfo currentDllPath)
+        {
+            System.Console.WriteLine("");
+            System.Console.WriteLine("");
+            System.Console.WriteLine("Km vergoeding created:");
+            var builder = new KmVergoedingBuilder();
+            byte[] excel = builder.Build(year);
+            string fileName = currentDllPath.FullName + $"\\itenium-kmvergoeding-{year}.xlsx";
+
+            File.WriteAllBytes(fileName, excel);
+            System.Console.WriteLine(fileName);
         }
     }
 }

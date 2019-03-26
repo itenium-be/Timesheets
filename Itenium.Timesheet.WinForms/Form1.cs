@@ -31,7 +31,7 @@ namespace Itenium.Timesheet.WinForms
             };
 
             var desktopPath = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            var excel = Timesheets.Create(details);
+            var excel = new TimesheetBuilder(details).Build(details.Year);
             File.WriteAllBytes(details.GetFilename(desktopPath), excel);
             System.Diagnostics.Process.Start(details.GetFilename(desktopPath));
         }
