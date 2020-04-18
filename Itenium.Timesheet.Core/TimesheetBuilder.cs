@@ -56,6 +56,18 @@ namespace Itenium.Timesheet.Core
 
             Sheet.Cells["I14"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
             Sheet.Cells["I14"].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+
+
+            
+            var rng = Sheet.Cells["G24:J24"];
+            rng.Merge = true;
+            rng.Value = "Signature " + ("Consultant");
+            rng.StyleName = "Center";
+            rng.Style.Font.Bold = true;
+
+            Sheet.Cells[23, 7, 29, 10].Style.Border.BorderAround(ExcelBorderStyle.Medium);
+            Sheet.Cells[23, 7, 29, 10].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            Sheet.Cells[23, 7, 29, 10].Style.Fill.BackgroundColor.SetColor(Color.White);
         }
 
         protected override void FormatTrackingCell(ExcelRange cell)
