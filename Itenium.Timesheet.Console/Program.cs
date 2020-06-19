@@ -20,7 +20,7 @@ namespace Itenium.Timesheet.Console
             System.Console.WriteLine("Timesheet(s) created:");
             foreach (ProjectDetails projectDetails in templates.Union(projects))
             {
-                var builder = new TimesheetBuilder(projectDetails);
+                var builder = ExcelSheetBuilderBase.CreateBuilder(projectDetails);
                 byte[] excel = builder.Build(projectDetails.Year);
                 string fileName = projectDetails.GetFilename(currentDllPath);
 

@@ -33,9 +33,21 @@ namespace Itenium.Timesheet.Core
         protected abstract string Email { get; }
 
         /// <summary>
-        /// Header text for the 'what done' column
+        /// Header text for the 'what done' column(s)
         /// </summary>
-        protected abstract string TrackColumnTitle { get; }
+        protected abstract IEnumerable<string> TrackColumnTitles { get; }
+
+        public static ExcelSheetBuilderBase CreateBuilder(ProjectDetails projectDetails)
+        {
+            if (projectDetails.IsFreelancer)
+            {
+                return new FreelanceTimesheetBuilder(projectDetails);
+            }
+            else
+            {
+                return new ConsultantTimesheetBuilder(projectDetails);
+            }
+        }
 
         public byte[] Build(int year)
         {
@@ -61,15 +73,17 @@ namespace Itenium.Timesheet.Core
 
         public void AddMonthSheet()
         {
-            Sheet.Column(1).Width = 3;
             Sheet.Row(1).Height = 10;
-
             Sheet.Row(2).Height = 10;
             Sheet.Row(3).Height = 30;
             Sheet.Row(4).Height = 7;
 
-            Sheet.Column(4).Width = 5;
-            Sheet.Column(11).Width = 3;
+            Sheet.Column(1).Width = 3;
+            Sheet.Column(2).Width = 10;
+            Sheet.Column(3).Width = 15;
+            Sheet.Column(4).Width = 15;
+            Sheet.Column(5).Width = 15;
+            //Sheet.Column(11).Width = 3;
 
             AddHeader();
 
@@ -108,7 +122,7 @@ namespace Itenium.Timesheet.Core
             Sheet.Cells["B2:J4"].Style.Fill.PatternType = ExcelFillStyle.Solid;
             Sheet.Cells["B2:J4"].Style.Fill.BackgroundColor.SetColor(Color.White);
 
-            Sheet.Column(2).Width = 15;
+            Sheet.Column(2).Width = 12;
 
             AddHeaderCore();
 
@@ -138,10 +152,23 @@ namespace Itenium.Timesheet.Core
             int currentRow = startRow;
             Sheet.Row(startRow).Height = 18;
 
+            var trackColumnCount = TrackColumnTitles.Count();
+
             Sheet.Cells[currentRow, 2].TableHeader("Day");
-            Sheet.Cells[currentRow, 3].TableHeader(TrackColumnTitle);
-            Sheet.Cells[currentRow, 3, currentRow, 5].Merge = true;
-            Sheet.Cells[currentRow, 2, currentRow, 5].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            if (trackColumnCount == 1)
+            {
+                Sheet.Column(3).Width = 25;
+                Sheet.Cells[currentRow, 3].TableHeader(TrackColumnTitles.Single());
+            }
+            else
+            {
+                foreach (var trackColumnTitle in TrackColumnTitles.Select((value, index) => new { index, value }))
+                {
+                    Sheet.Cells[currentRow, 3 + trackColumnTitle.index].TableHeader(trackColumnTitle.value);
+                    Sheet.Cells[currentRow, 3 + trackColumnTitle.index].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                }
+            }
+            
             currentRow++;
 
             foreach (var day in GetDaysInMonth())
@@ -149,19 +176,21 @@ namespace Itenium.Timesheet.Core
                 Sheet.Cells[currentRow, 2].Value = day;
                 Sheet.Cells[currentRow, 2].StyleName = "Center";
 
-                Sheet.Cells[currentRow, 3, currentRow, 5].Merge = true;
-                Sheet.Cells[currentRow, 3].StyleName = "Center";
-
                 if (day.IsHoliday)
                 {
-                    Sheet.Cells[currentRow, 3].StyleName = "";
-                    Sheet.Cells[currentRow, 2, currentRow, 5].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    Sheet.Cells[currentRow, 2, currentRow, 5].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                    Sheet.Cells[currentRow, 3, currentRow, 2 + trackColumnCount].StyleName = "";
+                    Sheet.Cells[currentRow, 2, currentRow, 2 + trackColumnCount].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    Sheet.Cells[currentRow, 2, currentRow, 2 + trackColumnCount].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                    // Sheet.Cells[currentRow, 3, currentRow, trackColumnCount + 2].Merge = true;
 
                     Sheet.Cells[currentRow, 3].Value = day.GetHolidayDesc();
                 }
+                else
+                {
+                    Sheet.Cells[currentRow, 3, currentRow, 3 + trackColumnCount].StyleName = "Center";
+                }
 
-                FormatTrackingCell(Sheet.Cells[currentRow, 3]);
+                FormatTrackingCell(Sheet.Cells[currentRow, 3, currentRow,  2 + trackColumnCount]);
 
                 currentRow++;
             }
@@ -169,14 +198,14 @@ namespace Itenium.Timesheet.Core
             currentRow--;
             _endRow = currentRow;
 
-            var table = Sheet.Cells[startRow, 2, currentRow, 5];
+            var table = Sheet.Cells[startRow, 2, currentRow, 2 + trackColumnCount];
             table.Style.Border.Top.Style = ExcelBorderStyle.Thin;
             table.Style.Border.Left.Style = ExcelBorderStyle.Thin;
             table.Style.Border.Right.Style = ExcelBorderStyle.Thin;
             table.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
 
             table.Style.Border.BorderAround(ExcelBorderStyle.Medium);
-            Sheet.Cells[startRow, 2, startRow, 5].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
+            Sheet.Cells[startRow, 2, startRow, 2 + trackColumnCount].Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
 
             AddFooter(currentRow);
         }
