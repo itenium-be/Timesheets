@@ -9,6 +9,9 @@ namespace Itenium.Timesheet.Core
 {
     public class KmVergoedingBuilder : ExcelSheetBuilderBase
     {
+        private const decimal CentPerKm = 15;
+        private const decimal MonthMaxEuros = 100;
+
         protected override string Title => "KM VERGOEDING";
         protected override string Email => "expenses@itenium.be";
         protected override string EmailText => "Please send back duly signed the following month to:";
@@ -45,9 +48,15 @@ namespace Itenium.Timesheet.Core
             Sheet.Cells["C7"].Value = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(Month) + " " + Year;
         }
 
+        protected override void BuildCore(ExcelPackage package)
+        {
+            var readmeSheet = Sheet.Workbook.Worksheets.Add("Readme");
+            readmeSheet.Cells["A1"].Value = $"{CentPerKm}cent / km. Max per maand {MonthMaxEuros} EUR";
+        }
+
         protected override void FormatTrackingCell(ExcelRange cell)
         {
-            cell.Style.Numberformat.Format = "0";
+            cell.Style.Numberformat.Format = "0.0";
         }
     }
 }

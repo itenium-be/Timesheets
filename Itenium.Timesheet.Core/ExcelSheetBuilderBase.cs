@@ -65,11 +65,15 @@ namespace Itenium.Timesheet.Core
                     AddMonthSheet();
                 }
 
+                BuildCore(package);
+
                 package.Workbook.Worksheets[DateTime.Now.Month].Select();
 
                 return package.GetAsByteArray();
             }
         }
+
+        protected virtual void BuildCore(ExcelPackage package) { }
 
         public void AddMonthSheet()
         {
