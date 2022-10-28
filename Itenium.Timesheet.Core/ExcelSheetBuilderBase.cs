@@ -63,11 +63,20 @@ namespace Itenium.Timesheet.Core
                     Sheet = package.Workbook.Worksheets.Add(monthName);
                     Month = month;
                     AddMonthSheet();
+
+                    if (month == DateTime.Now.Month && !string.IsNullOrWhiteSpace(HeaderComment))
+                    {
+                        var comment = Sheet.Cells["C10"].AddComment(HeaderComment, "itenium");
+                        comment.Font.Bold = true;
+                        comment.AutoFit = true;
+                        comment.Visible = true;
+                    }
                 }
 
                 BuildCore(package);
 
-                package.Workbook.Worksheets[DateTime.Now.Month].Select();
+                var currentMonth = package.Workbook.Worksheets[DateTime.Now.Month];
+                currentMonth.Select();
 
                 return package.GetAsByteArray();
             }
@@ -213,6 +222,8 @@ namespace Itenium.Timesheet.Core
 
             AddFooter(currentRow);
         }
+
+        protected virtual string HeaderComment => null;
 
         protected abstract void FormatTrackingCell(ExcelRange cell);
 

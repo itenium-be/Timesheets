@@ -89,5 +89,7 @@ namespace Itenium.Timesheet.Core
             Sheet.Cells["H7"].HeaderLabel("Reference");
             Sheet.Cells["I7"].Value = _details.CustomerReference;
         }
+
+        protected override string HeaderComment => ConsultantTimesheetBuilder.TimesheetComment;
     }
 }

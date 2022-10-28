@@ -9,6 +9,7 @@ namespace Itenium.Timesheet.Core
 {
     public class ConsultantTimesheetBuilder : ExcelSheetBuilderBase
     {
+        internal const string TimesheetComment = "Fill in hours in format '08:00' for the calculations to work";
         protected override string Title => "TIMESHEET";
         protected override string Email => "timesheet@itenium.be";
         protected override string EmailText => "Please send back duly signed document by the 2nd working day of the following month to:";
@@ -94,5 +95,7 @@ namespace Itenium.Timesheet.Core
             Sheet.Cells["H7"].HeaderLabel("Reference");
             Sheet.Cells["I7"].Value = _details.CustomerReference;
         }
+
+        protected override string HeaderComment => TimesheetComment;
     }
 }
