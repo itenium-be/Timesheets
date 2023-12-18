@@ -75,7 +75,7 @@ namespace Itenium.Timesheet.Core
 
                 BuildCore(package);
 
-                var currentMonth = package.Workbook.Worksheets[DateTime.Now.Month];
+                var currentMonth = package.Workbook.Worksheets[DateTime.Now.Month - 1];
                 currentMonth.Select();
 
                 return package.GetAsByteArray();
