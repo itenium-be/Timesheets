@@ -12,6 +12,9 @@ namespace Itenium.Timesheet.Console
         private static void Main(string[] args)
         {
             int year = DateTime.Now.Year;
+            if (DateTime.Now.Month >= 12)
+                year++;
+
             DirectoryInfo currentDllPath = new FileInfo(Environment.GetCommandLineArgs()[0]).Directory;
 
             IEnumerable<ProjectDetails> templates = ProjectDetailsFactory.CreateForYear(year);
