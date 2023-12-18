@@ -9,7 +9,7 @@ namespace Itenium.Timesheet.Core
 {
     public class KmVergoedingBuilder : ExcelSheetBuilderBase
     {
-        private const decimal CentPerKm = 15;
+        private const decimal CentPerKm = 27;
         private const decimal MonthMaxEuros = 100;
 
         protected override string Title => "KM VERGOEDING";
