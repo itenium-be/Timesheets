@@ -39,7 +39,13 @@ namespace Itenium.Timesheet.Console
         /// </summary>
         public static IEnumerable<ProjectDetails> CreateForProjects(DirectoryInfo projectsDir, int year)
         {
-            return Directory.GetFiles(Path.Combine(projectsDir.FullName, "Projects"), "*.json")
+            string fullDir = Path.Combine(projectsDir.FullName, "Projects");
+            if (!Directory.Exists(fullDir))
+            {
+                Directory.CreateDirectory(fullDir);
+            }
+
+            return Directory.GetFiles(fullDir, "*.json")
                 .Select(File.ReadAllText)
                 .Select(JsonConvert.DeserializeObject<ProjectDetails>)
                 .Select(projectDetails =>
