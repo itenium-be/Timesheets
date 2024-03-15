@@ -83,11 +83,11 @@ namespace Itenium.Timesheet.Core
             Sheet.Cells["B7"].HeaderLabel("Month");
             Sheet.Cells["C7"].Value = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(Month) + " " + _details.Year;
 
-            Sheet.Cells["H6"].HeaderLabel("Customer");
-            Sheet.Cells["I6"].Value = _details.Customer;
+            Sheet.Cells["G6"].HeaderLabel("Customer");
+            Sheet.Cells["H6"].Value = _details.Customer;
 
-            Sheet.Cells["H7"].HeaderLabel("Reference");
-            Sheet.Cells["I7"].Value = _details.CustomerReference;
+            Sheet.Cells["G7"].HeaderLabel("Reference");
+            Sheet.Cells["H7"].Value = _details.CustomerReference;
         }
 
         protected override string HeaderComment => ConsultantTimesheetBuilder.TimesheetComment;
