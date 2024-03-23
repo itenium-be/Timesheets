@@ -47,7 +47,7 @@ namespace Itenium.Timesheet.Core
 
             Sheet.Cells["H12"].StyleName = "Left";
             Sheet.Cells["G12"].HeaderLabel("Days");
-            Sheet.Cells["H12"].Formula = "ROUND(I11 * 3, 2)";
+            Sheet.Cells["H12"].Formula = "ROUND(H11 * 3, 2)";
 
             Sheet.Cells["G14"].HeaderLabel("Manager");
 
