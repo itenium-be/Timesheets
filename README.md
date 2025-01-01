@@ -34,7 +34,7 @@ Create the templates:
 dotnet run --project .\Itenium.Timesheet.Console\Itenium.Timesheet.Console.csproj
 ```
 
-Output:  
+Output Excels in `Itenium.Timesheet.Console\bin\Debug\netcoreapp2.1`:  
 - Generic template for Consultants
 - Generic template for Freelancers
 - Specific project template per json file in `Projects` folder
