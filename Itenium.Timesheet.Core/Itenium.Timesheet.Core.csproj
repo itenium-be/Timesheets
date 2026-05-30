@@ -1,12 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2</TargetFramework>
+    <!-- netstandard2.0 keeps the .NET Framework WinForms app able to reference this lib -->
+    <TargetFrameworks>netstandard2.0;net10.0-windows</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Epplus" Version="4.5.2" />
+    <PackageReference Include="EPPlus" Version="4.5.2" />
     <PackageReference Include="Nager.Date" Version="1.22.3" />
+  </ItemGroup>
+
+  <!-- EPPlus 4.5.2 drags in an ancient System.Drawing.Common; pin a modern one for the .NET 10 build -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
